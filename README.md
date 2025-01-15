@@ -2,6 +2,7 @@
 Pokemon Quiz using pokeApi
 
 Working image:
-![image](https://github.com/user-attachments/assets/b756fd8a-3609-4805-8894-a1928d677cd6)
+![image](https://github.com/user-attachments/assets/e08247bb-0ee1-4ef8-8d00-8e612d50e4c4)
 
-![image](https://github.com/user-attachments/assets/c3ba20fc-2a75-4702-ad5f-9c1e34a7bbac)
+![image](https://github.com/user-attachments/assets/9da7c03d-3879-4754-9e39-cf32d670059b)
+
