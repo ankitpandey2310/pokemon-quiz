@@ -34,7 +34,7 @@
           class="btn btn-secondary btn-lg btnPokemon"
           [attr.aria-label]="'Select Pokémon ' + pokemon.name"
         >
-          {{ pokemon.name }}
+          {{ pokemon.name | titlecase}}
         </button>
       </div>
       <section class="mt-5 col-md-2">

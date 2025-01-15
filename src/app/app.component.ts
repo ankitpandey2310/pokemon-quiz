@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   /**
    * Function is called when user clicks on any answer and set necessary flags
-   * @param pokemon clicked option out of available options
+   * @param pokemon clicked option out of all available options
    */
   clickAnswer(pokemon: Pokemon): void {
     this.answerClicked = true;
