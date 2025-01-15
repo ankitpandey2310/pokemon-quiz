@@ -1,14 +1,13 @@
-<!-- <pre>Data Obtained is: {{ response | json }}</pre> -->
-
 <div class="container text-center">
   <h1 class="mt-5">Who’s That Pokémon?</h1>
-  <div *ngIf="loading && !finishQuiz">
+  <div *ngIf="loading && !finishQuiz" aria-live="polite">
     <ng-container *ngFor="let pokemon of response?.results">
-      <div *ngIf="pokemon.correctAnswer" class="imageContainer">
+      <article *ngIf="pokemon.correctAnswer" class="imageContainer">
         <div
           *ngIf="imageLoader"
           class="spinner-border text-primary"
           role="status"
+          aria-label="Loading image, please wait"
         ></div>
         <img
           (load)="onImageLoad($event)"
@@ -18,11 +17,11 @@
               pokemon.name +
               '.png'
           }}"
-          alt="Guess the Pokemon image"
+          alt="Pokemon image"
         />
-      </div>
+      </article>
     </ng-container>
-    <div class="row">
+    <section class="row">
       <div *ngFor="let pokemon of response?.results" class="mt-2 col-md-12">
         <button
           [ngClass]="[
@@ -33,41 +32,44 @@
           (click)="clickAnswer(pokemon)"
           type="button"
           class="btn btn-secondary btn-lg btnPokemon"
+          [attr.aria-label]="'Select Pokémon ' + pokemon.name"
         >
           {{ pokemon.name }}
         </button>
       </div>
-      <div class="mt-5 col-md-2">
-        <h4>
+      <section class="mt-5 col-md-2">
+        <h4 aria-live="polite">
           Score: <span id="correctCount">{{ correctAnswered }}</span
           >/<span id="totalCount">{{ totalAttempted }}</span>
         </h4>
-      </div>
-      <div class="mt-5 col-md-2 offset-md-2">
+      </section>
+      <section class="mt-5 col-md-2 offset-md-2">
         <button
           type="button"
           [disabled]="!answerClicked"
           class="btn btn-primary btn-lg"
           (click)="nextPokemon()"
+          aria-label="Go to the next Pokémon"
         >
           NEXT
         </button>
-      </div>
-      <div class="mt-5 mb-5 col-md-2">
+      </section>
+      <section class="mt-5 mb-5 col-md-2">
         <button
           type="button"
           class="btn btn-primary btn-lg"
           (click)="restartQuiz()"
+          aria-label="Restart the quiz"
         >
           RESTART
         </button>
-      </div>
-    </div>
-    <div *ngIf="showError" class="alert alert-danger" role="alert">
+      </section>
+    </section>
+    <div *ngIf="showError" class="alert alert-danger" role="alert" aria-live="assertive">
       Something Went Wrong !
     </div>
   </div>
-  <div *ngIf="finishQuiz">
+  <section *ngIf="finishQuiz" aria-live="polite">
     <div class="mt-5 alert alert-success" role="alert">
       <b>Your Score: {{ correctAnswered }}/{{ totalAttempted }}</b>&nbsp;&nbsp;
       "Ready to play again? Click 'Restart' to dive back into the game!"
@@ -77,9 +79,10 @@
         type="button"
         class="btn btn-primary btn-lg"
         (click)="restartQuiz()"
+        aria-label="Restart the game"
       >
         RESTART
       </button>
     </div>
-  </div>
+  </section>
 </div>

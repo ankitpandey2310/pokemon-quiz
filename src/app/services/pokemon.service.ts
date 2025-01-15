@@ -36,7 +36,7 @@ export class PokemonService {
    * @param response Api response
    * @returns required data in quiz form
    */
-  processResponse(response: Response) {
+  processResponse(response: Response): Response {
     return {
       results: response.results.map(
         (pokemon: any) =>
@@ -51,15 +51,15 @@ export class PokemonService {
 
   /**
    * Function used to return error details
-   * @param error 
+   * @param error
    * @returns error response
    */
-  handleError(error: any) {
+  handleError(error: any): void {
     return error;
   }
 
   /**
-   * Function used to set question with correct answer randomly 
+   * Function used to set question with correct answer randomly
    * @returns correct answer
    */
   chooseCorrectAnswer(): boolean {

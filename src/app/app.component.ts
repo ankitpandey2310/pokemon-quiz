@@ -30,7 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loadQuiz();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
   /**
    * Function to fetch data and load quiz
    */
-  loadQuiz() {
+  loadQuiz(): void {
     this.subscription = this.pokemonService
       .fetchPokemons()
       .subscribe((res: any) => {
@@ -73,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
   nextPokemon(): void {
     if (this.totalAttempted >= QUIZ_QUESTION_LIMIT) {
       this.finishQuiz = true;
-    }else{
+    } else {
       this.nextPokemonClicked = true;
       this.loadQuiz();
     }
@@ -91,14 +91,14 @@ export class AppComponent implements OnInit, OnDestroy {
    * To display loader while image is loading
    * @param e event details of image
    */
-  onImageLoad(e: any) {
+  onImageLoad(e: any): void {
     this.imageLoader = false;
   }
 
   /**
    * Restarts the Quiz
    */
-  restartQuiz(){
+  restartQuiz(): void {
     this.loadQuiz();
     setTimeout(() => {
       this.finishQuiz = false;
