@@ -1,0 +1,87 @@
+<!-- <pre>Data Obtained is: {{ response | json }}</pre> -->
+
+<div class="container text-center">
+  <h1 class="mt-5">Who’s That Pokémon?</h1>
+  <div *ngIf="loading && !finishQuiz">
+    <ng-container *ngFor="let pokemon of response?.results">
+      <div *ngIf="pokemon.correctAnswer" class="imageContainer">
+        <div
+          *ngIf="imageLoader"
+          class="spinner-border text-primary"
+          role="status"
+        ></div>
+        <img
+          (load)="onImageLoad($event)"
+          [ngClass]="[!answerClicked ? 'pokemonImg' : '']"
+          src="{{
+            'https://img.pokemondb.net/sprites/home/normal/' +
+              pokemon.name +
+              '.png'
+          }}"
+          alt="Guess the Pokemon image"
+        />
+      </div>
+    </ng-container>
+    <div class="row">
+      <div *ngFor="let pokemon of response?.results" class="mt-2 col-md-12">
+        <button
+          [ngClass]="[
+            answerClicked && pokemon.correctAnswer ? 'btn-success' : '',
+            pokemon.status && !pokemon.correctAnswer ? 'btn-danger' : ''
+          ]"
+          [disabled]="answerClicked"
+          (click)="clickAnswer(pokemon)"
+          type="button"
+          class="btn btn-secondary btn-lg btnPokemon"
+        >
+          {{ pokemon.name }}
+        </button>
+      </div>
+      <div class="mt-5 col-md-3 offset-md-3">
+        <h4>
+          Score: <span id="correctCount">{{ correctAnswered }}</span
+          >/<span id="totalCount">{{ totalAttempted }}</span>
+        </h4>
+      </div>
+      <div class="mt-5 mb-5 col-md-1">
+        <button
+          type="button"
+          [disabled]="!answerClicked"
+          class="btn btn-primary btn-lg"
+          (click)="nextPokemon()"
+        >
+          NEXT
+        </button>
+      </div>
+      <div class="mt-5 mb-5 col-md-1">
+        <button
+          type="button"
+          class="btn btn-primary btn-lg"
+          (click)="restartQuiz()"
+        >
+          RESTART
+        </button>
+      </div>
+    </div>
+    <div *ngIf="showError" class="alert alert-danger" role="alert">
+      Something Went Wrong !
+    </div>
+  </div>
+  <div *ngIf="finishQuiz">
+    <div *ngIf="correctAnswered > 5" class="mt-5 alert alert-success" role="alert">
+      "Congratulations! You've done it! Ready to play again? Click 'Restart' to dive back into the game!"
+    </div>
+    <div *ngIf="correctAnswered <= 5" class="mt-5 alert alert alert-danger" role="alert">
+      "Oops! You didn't clear the quiz this time. Don't give up—try again and give it your best shot!"
+    </div>
+    <div class="mt-5 mb-5 col-md-1">
+      <button
+        type="button"
+        class="btn btn-primary btn-lg"
+        (click)="restartQuiz()"
+      >
+        RESTART
+      </button>
+    </div>
+  </div>
+</div>
