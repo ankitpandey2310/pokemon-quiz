@@ -37,13 +37,13 @@
           {{ pokemon.name }}
         </button>
       </div>
-      <div class="mt-5 col-md-3 offset-md-3">
+      <div class="mt-5 col-md-2">
         <h4>
           Score: <span id="correctCount">{{ correctAnswered }}</span
           >/<span id="totalCount">{{ totalAttempted }}</span>
         </h4>
       </div>
-      <div class="mt-5 mb-5 col-md-1">
+      <div class="mt-5 col-md-2 offset-md-2">
         <button
           type="button"
           [disabled]="!answerClicked"
@@ -53,7 +53,7 @@
           NEXT
         </button>
       </div>
-      <div class="mt-5 mb-5 col-md-1">
+      <div class="mt-5 mb-5 col-md-2">
         <button
           type="button"
           class="btn btn-primary btn-lg"
@@ -68,11 +68,9 @@
     </div>
   </div>
   <div *ngIf="finishQuiz">
-    <div *ngIf="correctAnswered > 5" class="mt-5 alert alert-success" role="alert">
-      "Congratulations! You've done it! Ready to play again? Click 'Restart' to dive back into the game!"
-    </div>
-    <div *ngIf="correctAnswered <= 5" class="mt-5 alert alert alert-danger" role="alert">
-      "Oops! You didn't clear the quiz this time. Don't give up—try again and give it your best shot!"
+    <div class="mt-5 alert alert-success" role="alert">
+      <b>Your Score: {{ correctAnswered }}/{{ totalAttempted }}</b>&nbsp;&nbsp;
+      "Ready to play again? Click 'Restart' to dive back into the game!"
     </div>
     <div class="mt-5 mb-5 col-md-1">
       <button

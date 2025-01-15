@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 import { PokemonService } from './services/pokemon.service';
@@ -99,6 +99,30 @@ describe('AppComponent', () => {
         expect(component.nextPokemonClicked).toBeTrue();
         expect(component.loadQuiz).toHaveBeenCalled();
       });
+     });
+
+     describe('restartQuiz', () => {
+      it('should reset quiz state on restartQuiz', fakeAsync(() => {
+        spyOn(component, 'loadQuiz'); 
+
+        component.finishQuiz = true;
+        component.totalAttempted = 5;
+        component.correctAnswered = 3;
+        component.restartQuiz();
+        tick(1000); 
+        expect(component.loadQuiz).toHaveBeenCalled(); 
+        expect(component.finishQuiz).toBeFalse();
+        expect(component.totalAttempted).toBe(0);
+        expect(component.correctAnswered).toBe(0);
+      }));
+     });
+
+     describe('reset state', () => {
+       it('should reset state ', fakeAsync(() => {
+        component.resetState();
+        expect(component.answerClicked).toBeFalse();
+        expect(component.nextPokemonClicked).toBeFalse();
+       }));
      });
 
 });

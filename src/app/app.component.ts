@@ -99,11 +99,11 @@ export class AppComponent implements OnInit, OnDestroy {
    * Restarts the Quiz
    */
   restartQuiz(){
-    this.totalAttempted = 0;
-    this.correctAnswered = 0;
     this.loadQuiz();
     setTimeout(() => {
       this.finishQuiz = false;
+      this.totalAttempted = 0;
+      this.correctAnswered = 0;
     }, 1000);
   }
 }
