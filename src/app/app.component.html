@@ -10,7 +10,7 @@
           aria-label="Loading image, please wait"
         ></div>
         <img
-          (load)="onImageLoad($event)"
+          (load)="onImageLoad()"
           [ngClass]="[!answerClicked ? 'pokemonImg' : '']"
           src="{{
             'https://img.pokemondb.net/sprites/home/normal/' +

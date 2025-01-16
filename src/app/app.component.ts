@@ -5,6 +5,7 @@ import { PokemonService } from './services/pokemon.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { QUIZ_QUESTION_LIMIT } from './constants/constants';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import { QUIZ_QUESTION_LIMIT } from './constants/constants';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  response: Response;
+  response: Response | HttpErrorResponse;
   answerClicked: boolean = false;
   nextPokemonClicked: boolean = false;
   subscription: Subscription | null = null;
@@ -42,12 +43,12 @@ export class AppComponent implements OnInit, OnDestroy {
   loadQuiz(): void {
     this.subscription = this.pokemonService
       .fetchPokemons()
-      .subscribe((res: any) => {
+      .subscribe((res: Response | HttpErrorResponse) => {
         this.response = res;
         this.resetState();
         this.loading = true;
         this.imageLoader = true;
-        if (res.error) {
+        if (res instanceof HttpErrorResponse) {
           this.showError = true;
         }
       });
@@ -91,7 +92,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * To display loader while image is loading
    * @param e event details of image
    */
-  onImageLoad(e: any): void {
+  onImageLoad(): void {
     this.imageLoader = false;
   }
 

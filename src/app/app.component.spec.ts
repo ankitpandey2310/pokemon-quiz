@@ -80,7 +80,7 @@ describe('AppComponent', () => {
 
     describe('onImageLoad', () => {
       it('should set imageLoader to false', () => {
-        component.onImageLoad({});
+        component.onImageLoad();
         expect(component.imageLoader).toBeFalse();
       });
     });

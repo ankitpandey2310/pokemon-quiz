@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { map, Observable } from 'rxjs';
 import { Pokemon } from '../interfaces/pokemon.interface';
 import { Response } from '../interfaces/response.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators'; 
 import { POKEMON_API_BASE_URL, LIMIT, DRAW_OFFSET } from '../constants/constants';
 
@@ -22,7 +23,7 @@ export class PokemonService {
   fetchPokemons(): Observable<any> {
     this.resetState();
     return this.http
-      .get<any>(
+      .get<Response>(
         POKEMON_API_BASE_URL + this.drawOffset().toString() + '&limit=' + LIMIT
       )
       .pipe(
@@ -39,7 +40,7 @@ export class PokemonService {
   processResponse(response: Response): Response {
     return {
       results: response.results.map(
-        (pokemon: any) =>
+        (pokemon: Pokemon) =>
           <Pokemon>{
             name: pokemon.name,
             correctAnswer: this.chooseCorrectAnswer(),
@@ -54,7 +55,7 @@ export class PokemonService {
    * @param error
    * @returns error response
    */
-  handleError(error: any): void {
+  handleError(error: HttpErrorResponse): HttpErrorResponse {
     return error;
   }
 
