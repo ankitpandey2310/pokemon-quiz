@@ -14,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  response: Response | HttpErrorResponse;
+  response: Response;
   answerClicked: boolean = false;
   nextPokemonClicked: boolean = false;
   subscription: Subscription | null = null;
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
   loadQuiz(): void {
     this.subscription = this.pokemonService
       .fetchPokemons()
-      .subscribe((res: Response | HttpErrorResponse) => {
+      .subscribe((res: Response) => {
         this.response = res;
         this.resetState();
         this.loading = true;
